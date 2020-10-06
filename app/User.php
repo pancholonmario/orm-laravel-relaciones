@@ -36,4 +36,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // 1 usuario tenga 1 perfil: relación de 1 a 1:
+
+    public function Profile()
+    {
+        return $this->hasOne(Profile::class);
+    }
 }
