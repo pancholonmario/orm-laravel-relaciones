@@ -16,11 +16,11 @@ class CreateLocationsTable extends Migration
         Schema::create('locations', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('profiles_id')->unsigned();
+            $table->bigInteger('profile_id')->unsigned();
             $table->string('country');
             $table->timestamps();
 
-            $table->foreign('profiles_id')->references('id')->on('profiles')
+            $table->foreign('profile_id')->references('id')->on('profiles')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
