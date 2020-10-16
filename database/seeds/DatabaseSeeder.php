@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
         factory(App\Level::class)->create(['name' => 'Plata']);
         factory(App\Level::class)->create(['name' => 'Bronce']);
 
+        //para las imagenes de prueba uso: https://lorempixel.com
+        //sin embargo para las pruebas puedo usar esta URL: https://picsum.photos/"
+
         factory(App\User::class, 5)->create()->each(function ($user) {
 
             $profile = $user->profile()->save(factory(App\Profile::class)->make());
@@ -26,7 +29,7 @@ class DatabaseSeeder extends Seeder
             $user->groups()->attach($this->array(rand(1,3)));
 
             $user->image()->save(factory(App\Image::class)->make([
-                'url' => 'https://lorempixel.com/90/90/'
+                'url' => 'https://picsum.photos/90/90/'
             ]));
 
         });
