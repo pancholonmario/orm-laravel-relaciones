@@ -20,10 +20,36 @@ Route::get('/', function () {
 Route::get('/profile/{id}', function($id){
 
     $user = App\User::find($id);
+    // get() traeme toda esta consulta, comments es un metodo que está en el modelo
+    // with = con con esto hacemos que la vista no ejecute las consultas
+    $posts = $user->posts()->with('category', 'image', 'tags')
+    ->withCount('comments')->get();
+
+    $videos = $user->videos()->with('category', 'image', 'tags')
+    ->withCount('comments')->get();
 
         return view('profile', [
-            'user' => $user
+            'user' => $user,
+            'posts' => $posts,
+            'videos' => $videos
+        ]);   
+})->name('profile');
+
+Route::get('/level/{id}', function($id){
+
+    $level = App\Level::find($id);
+   
+    $posts = $level->posts()->with('category', 'image', 'tags')
+    ->withCount('comments')->get();
+
+    $videos = $level->videos()->with('category', 'image', 'tags')
+    ->withCount('comments')->get();
+
+        return view('level', [
+            'level' => $level,
+            'posts' => $posts,
+            'videos' => $videos
         ]);
     
     
-})->name('profile');
+})->name('level');
